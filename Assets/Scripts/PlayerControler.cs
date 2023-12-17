@@ -17,6 +17,7 @@ public class PlayerControler : MonoBehaviour
     private bool isOnGround;
 
     private MetersControler metersControler;
+    private UiControler uiControler;
     private Rigidbody playerRigibody;
 
     private float minX, maxX, minY, maxY;
@@ -37,15 +38,18 @@ public class PlayerControler : MonoBehaviour
         startingPosition = 0f;
         transform.position = new Vector3(0, minY, startingPosition);
         metersControler = GameObject.Find("GameplayManager").GetComponent<MetersControler>();
+        uiControler = GameObject.Find("GameplayManager").GetComponent<UiControler>();
         playerRigibody = this.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        SpeedManager();
-        float upMove = Input.GetAxis("Jump") * jumpSpeed * Time.deltaTime;
-        //transform.position += transform.up * upMove;
+        if (!uiControler.pauseIsOn)
+        {
+            SpeedManager();
+            JumpManager();
+        }
 
         //limit
         if (transform.position.y > maxY)
@@ -64,23 +68,6 @@ public class PlayerControler : MonoBehaviour
         {
             transform.position = new Vector3(minX, transform.position.y, transform.position.z);
         }
-
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
-        {
-            playerRigibody.velocity = new Vector3(0,0,0);
-            playerRigibody.AddForce(Vector3.up * jumpSpeed);
-            isOnGround = false;
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && !isOnGround && jumpLeft>0)
-        {
-            playerRigibody.velocity = new Vector3(0, 0, 0);
-            playerRigibody.AddForce(Vector3.up * jumpSpeed);
-            jumpLeft--;
-        }
-        if (isOnGround)
-        {
-            jumpLeft = 2; 
-        }
     }
 
     private void SpeedManager()
@@ -94,6 +81,26 @@ public class PlayerControler : MonoBehaviour
         transform.position += transform.forward * verticalMove;
 
         currentSpeed = verticalMove;
+    }
+
+    private void JumpManager()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
+        {
+            playerRigibody.velocity = new Vector3(0, 0, 0);
+            playerRigibody.AddForce(Vector3.up * jumpSpeed);
+            isOnGround = false;
+        }
+        if (Input.GetKeyDown(KeyCode.Space) && !isOnGround && jumpLeft > 0)
+        {
+            playerRigibody.velocity = new Vector3(0, 0, 0);
+            playerRigibody.AddForce(Vector3.up * jumpSpeed);
+            jumpLeft--;
+        }
+        if (isOnGround)
+        {
+            jumpLeft = 2;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
