@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerControler : MonoBehaviour
 {
-    [SerializeField]
     public int playerHp { get; private set; }
+    public float startingPosition { get; private set; }
 
     [SerializeField]
     private float startSpeed, currentSpeed, speedMultiplier, jumpSpeed, difficultyMultiplier;
@@ -19,10 +19,7 @@ public class PlayerControler : MonoBehaviour
     private MetersControler metersControler;
     private Rigidbody playerRigibody;
 
-    private float minX;
-    private float maxX;
-    private float minY;
-    private float maxY;
+    private float minX, maxX, minY, maxY;
 
     [SerializeField]
     private ParticleSystem Trail;
@@ -37,7 +34,8 @@ public class PlayerControler : MonoBehaviour
         maxX = 10f;
         minY = 0.5f;
         maxY = 20f;
-        transform.position = new Vector3(0, minY, 0);
+        startingPosition = 0f;
+        transform.position = new Vector3(0, minY, startingPosition);
         metersControler = GameObject.Find("GameplayManager").GetComponent<MetersControler>();
         playerRigibody = this.GetComponent<Rigidbody>();
     }
@@ -100,11 +98,17 @@ public class PlayerControler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("collision !");
-        playerHp -= 1;
-        if (playerHp <= 0)
+        if (other.gameObject.layer != 3)
         {
-            Debug.Log("GameOver !");
+            if (playerHp <= 0)
+            {
+                Debug.Log("GameOver !");
+            }
+            else
+            {
+                playerHp -= 1;
+                Debug.Log("Damage !");
+            }
         }
         if (other.gameObject.layer == 3)
         {

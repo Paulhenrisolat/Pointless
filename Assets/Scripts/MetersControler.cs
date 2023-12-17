@@ -6,14 +6,17 @@ using UnityEngine;
 public class MetersControler : MonoBehaviour
 {
     private GameObject Player;
+    private PlayerControler PlayerControler;
     public float Meters { get; private set; }
+    
     [SerializeField]
-    private TMP_Text MetersTxt;
+    private TMP_Text MetersTxt, PlayerHpTxt;
 
     // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.Find("Player");
+        PlayerControler = Player.GetComponent<PlayerControler>();
         Meters = Player.transform.position.z;
     }
 
@@ -22,5 +25,6 @@ public class MetersControler : MonoBehaviour
     {
         Meters = Player.transform.position.z;
         MetersTxt.text = "Meters : "+ Meters;
+        PlayerHpTxt.text = PlayerControler.playerHp.ToString();
     }
 }
