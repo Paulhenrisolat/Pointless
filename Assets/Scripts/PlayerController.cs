@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControler : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public int playerHp { get; private set; }
     public float startingPosition { get; private set; }
@@ -16,8 +16,9 @@ public class PlayerControler : MonoBehaviour
     [SerializeField]
     private bool isOnGround;
 
-    private MetersControler metersControler;
-    private UiControler uiControler;
+    private MetersController metersController;
+    private UiController uiController;
+
     private Rigidbody playerRigibody;
 
     private float minX, maxX, minY, maxY;
@@ -37,15 +38,15 @@ public class PlayerControler : MonoBehaviour
         maxY = 20f;
         startingPosition = 0f;
         transform.position = new Vector3(0, minY, startingPosition);
-        metersControler = GameObject.Find("GameplayManager").GetComponent<MetersControler>();
-        uiControler = GameObject.Find("GameplayManager").GetComponent<UiControler>();
+        metersController = GameObject.Find("GameplayManager").GetComponent<MetersController>();
+        uiController = GameObject.Find("GameplayManager").GetComponent<UiController>();
         playerRigibody = this.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!uiControler.pauseIsOn)
+        if (!uiController.pauseIsOn)
         {
             SpeedManager();
             JumpManager();
@@ -72,7 +73,7 @@ public class PlayerControler : MonoBehaviour
 
     private void SpeedManager()
     {
-        speedMultiplier = (metersControler.Meters / 100) + difficultyMultiplier;
+        speedMultiplier = (metersController.Meters / 100) + difficultyMultiplier;
         
         //move
         float horizontalMove = Input.GetAxis("Horizontal") * (startSpeed+30) * Time.deltaTime;

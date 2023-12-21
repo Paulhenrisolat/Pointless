@@ -1,13 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class MetersControler : MonoBehaviour
+public class MetersController : MonoBehaviour
 {
-    private GameObject Player;
-    private PlayerControler PlayerControler;
     public float Meters { get; private set; }
+
+    private GameObject Player;
+    private PlayerController PlayerController;
+
     
     [SerializeField]
     private TMP_Text MetersTxt, PlayerHpTxt;
@@ -16,7 +19,7 @@ public class MetersControler : MonoBehaviour
     void Start()
     {
         Player = GameObject.Find("Player");
-        PlayerControler = Player.GetComponent<PlayerControler>();
+        PlayerController = Player.GetComponent<PlayerController>();
         Meters = Player.transform.position.z;
     }
 
@@ -24,7 +27,8 @@ public class MetersControler : MonoBehaviour
     void Update()
     {
         Meters = Player.transform.position.z;
+        Meters = (float)Math.Round(Meters,2);
         MetersTxt.text = "Meters : "+ Meters;
-        PlayerHpTxt.text = PlayerControler.playerHp.ToString();
+        PlayerHpTxt.text = PlayerController.playerHp.ToString();
     }
 }

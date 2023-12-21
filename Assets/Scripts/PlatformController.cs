@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformControler : MonoBehaviour
+public class PlatformController : MonoBehaviour
 {
-    public static PlatformControler Instance;
+    public static PlatformController Instance;
 
     [SerializeField]
     private GameObject[] GroundsPrefabs, GroundsOnScene;
@@ -17,7 +17,7 @@ public class PlatformControler : MonoBehaviour
     //[SerializeField]
     //private Image healthBackground, health;
 
-    private PlayerControler playerControler;
+    private PlayerController playerController;
 
     private void Awake()
     {
@@ -31,7 +31,7 @@ public class PlatformControler : MonoBehaviour
     void Start()
     {
         Player = GameObject.Find("Player");
-        playerControler = Player.GetComponent<PlayerControler>();
+        playerController = Player.GetComponent<PlayerController>();
 
         distDestroy = 15f;
         //nb object in list

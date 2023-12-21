@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class UiControler : MonoBehaviour
+public class UiController : MonoBehaviour
 {
     [SerializeField]
     private GameObject pauseMenu;

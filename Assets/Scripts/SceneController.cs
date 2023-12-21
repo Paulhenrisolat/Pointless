@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneControler : MonoBehaviour
+public class SceneController : MonoBehaviour
 {
     public void ChargeScene(string sceneName)
     {
