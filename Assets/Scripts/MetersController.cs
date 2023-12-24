@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class MetersController : MonoBehaviour
@@ -10,10 +9,6 @@ public class MetersController : MonoBehaviour
 
     private GameObject Player;
     private PlayerController PlayerController;
-
-    
-    [SerializeField]
-    private TMP_Text MetersTxt, PlayerHpTxt;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +23,5 @@ public class MetersController : MonoBehaviour
     {
         Meters = Player.transform.position.z;
         Meters = (float)Math.Round(Meters,2);
-        MetersTxt.text = "Meters : "+ Meters;
-        PlayerHpTxt.text = PlayerController.playerHp.ToString();
     }
 }

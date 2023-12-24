@@ -10,11 +10,13 @@ public class SaveController : MonoBehaviour
     private PlayerData playerData = new PlayerData();
 
     private MetersController metersController;
+    private PlayerController playerController;
     private string savePath;
 
     private void Start()
     {
         metersController = this.gameObject.GetComponent<MetersController>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         savePath = Application.persistentDataPath + "/PlayerData.json";
     }
 
@@ -35,6 +37,8 @@ public class SaveController : MonoBehaviour
     {
         string playerDataJson = File.ReadAllText(savePath);
         playerData = JsonUtility.FromJson<PlayerData>(playerDataJson);
+        playerController.startingPosition = playerData.meters;
+        playerController.positionZ = playerData.meters;
         Debug.Log("Data Loaded");
     }
 }

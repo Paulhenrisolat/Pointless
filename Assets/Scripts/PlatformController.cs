@@ -7,15 +7,15 @@ public class PlatformController : MonoBehaviour
     public static PlatformController Instance;
 
     [SerializeField]
-    private GameObject[] GroundsPrefabs, GroundsOnScene;
+    private GameObject[] GroundsPrefabs, GroundsOnScene, BonusPrefabs;
     public float GroundSize;
     [SerializeField]
     private GameObject Player;
     [SerializeField]
     private float distDestroy;
 
-    //[SerializeField]
-    //private Image healthBackground, health;
+    [SerializeField]
+    private float nextPosPlatform;
 
     private PlayerController playerController;
 
@@ -27,6 +27,7 @@ public class PlatformController : MonoBehaviour
         }
         Instance = this;
     }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,13 +58,15 @@ public class PlatformController : MonoBehaviour
         for (int i = GroundsOnScene.Length - 1; i >= 0; i--)
         {
             GameObject ground = GroundsOnScene[i];
-            if (ground.transform.position.z + GroundSize / 2 < Player.transform.position.z - distDestroy)
+            float groundWidth = ground.GetComponentInChildren<Transform>().Find("Plane").GetComponent<Collider>().bounds.size.z;
+
+            if (ground.transform.position.z + groundWidth / 2 < Player.transform.position.z - distDestroy)
             {
                 float z = ground.transform.position.z;
                 Destroy(ground);
                 int r = Random.Range(0, GroundsPrefabs.Length);
                 ground = Instantiate(GroundsPrefabs[r]);
-                ground.transform.position = new Vector3(0, 0.2f, z + GroundSize * GroundsOnScene.Length);
+                ground.transform.position = new Vector3(0, 0.2f, z + groundWidth * GroundsOnScene.Length);
                 GroundsOnScene[i] = ground;
             }
         }

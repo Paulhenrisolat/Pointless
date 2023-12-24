@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public int playerHp { get; private set; }
-    public float startingPosition { get; private set; }
+    public float startingPosition { get; set; }
+    public float positionZ { get { return transform.position.z; } set { transform.position = new Vector3(transform.position.x, transform.position.y, value); } }
 
     [SerializeField]
     private float startSpeed, currentSpeed, speedMultiplier, jumpSpeed, difficultyMultiplier;
@@ -16,8 +17,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private bool isOnGround;
 
+    private GameObject gameplayManager;
     private MetersController metersController;
     private UiController uiController;
+    private FaithController faithController;
 
     private Rigidbody playerRigibody;
 
@@ -36,10 +39,13 @@ public class PlayerController : MonoBehaviour
         maxX = 10f;
         minY = 0.5f;
         maxY = 20f;
+        //test = playerData.meters;
         startingPosition = 0f;
         transform.position = new Vector3(0, minY, startingPosition);
-        metersController = GameObject.Find("GameplayManager").GetComponent<MetersController>();
-        uiController = GameObject.Find("GameplayManager").GetComponent<UiController>();
+        gameplayManager = GameObject.Find("GameplayManager");
+        metersController = gameplayManager.GetComponent<MetersController>();
+        uiController = gameplayManager.GetComponent<UiController>();
+        faithController = gameplayManager.GetComponent<FaithController>();
         playerRigibody = this.GetComponent<Rigidbody>();
     }
 
@@ -122,6 +128,14 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("ground !");
             isOnGround = true;
+        }
+        if(other.gameObject.tag == "FaithBonus")
+        {
+            faithController.AddFaith();
+        }
+        if (other.gameObject.tag == "FaithMalus")
+        {
+            faithController.LooseFaith();
         }
     }
 }

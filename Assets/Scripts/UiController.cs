@@ -9,18 +9,33 @@ public class UiController : MonoBehaviour
     private GameObject pauseMenu;
     public bool pauseIsOn { get; private set; }
 
+    private MetersController metersController;
+    private PlayerController playerController;
+    private FaithController faithController;
+
+    [SerializeField]
+    private TMP_Text Mood, MetersTxt, PlayerHpTxt;
+
     // Start is called before the first frame update
     void Start()
     {
+        //pause
         pauseMenu = GameObject.Find("PauseMenu");
         pauseIsOn = false;
         pauseMenu.SetActive(false);
+        //other
+        metersController = this.gameObject.GetComponent<MetersController>();
+        faithController = this.gameObject.GetComponent<FaithController>();
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
         Pause();
+        MetersTxt.text = "Meters : " + metersController.Meters;
+        PlayerHpTxt.text = playerController.playerHp.ToString();
+        Mood.text = "Mood: " + faithController.entityStatus;
     }
 
     private void Pause()
