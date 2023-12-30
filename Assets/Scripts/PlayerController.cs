@@ -15,14 +15,21 @@ public class PlayerController : MonoBehaviour
     private int jumpLeft;
 
     [SerializeField]
-    private bool isOnGround;
+    private bool isOnGround, canTakeDamage;
+
+    [SerializeField]
+    private double invincibilityTimerCooldown;
+    private TimeService invincibilityTimer;
 
     private GameObject gameplayManager;
+    private GameObject cameraPlayer;
     private MetersController metersController;
     private UiController uiController;
     private FaithController faithController;
+    private CameraControler cameraControler;
 
     private Rigidbody playerRigibody;
+    private MeshRenderer playerMeshRenderer;
 
     private float minX, maxX, minY, maxY;
 
@@ -39,14 +46,21 @@ public class PlayerController : MonoBehaviour
         maxX = 10f;
         minY = 0.5f;
         maxY = 20f;
-        //test = playerData.meters;
-        startingPosition = 0f;
+        difficultyMultiplier = 1f;
+        startingPosition = 1f;
+        canTakeDamage = true;
         transform.position = new Vector3(0, minY, startingPosition);
         gameplayManager = GameObject.Find("GameplayManager");
         metersController = gameplayManager.GetComponent<MetersController>();
         uiController = gameplayManager.GetComponent<UiController>();
         faithController = gameplayManager.GetComponent<FaithController>();
+        cameraPlayer = GameObject.Find("MainCamera");
+        cameraControler = cameraPlayer.GetComponent<CameraControler>();
         playerRigibody = this.GetComponent<Rigidbody>();
+        playerMeshRenderer = this.GetComponentInChildren<MeshRenderer>();
+        //timer
+        invincibilityTimer = new TimeService(3f);
+        invincibilityTimerCooldown = invincibilityTimer.timerActualTime;
     }
 
     // Update is called once per frame
@@ -74,6 +88,17 @@ public class PlayerController : MonoBehaviour
         if (transform.position.x < minX)
         {
             transform.position = new Vector3(minX, transform.position.y, transform.position.z);
+        }
+
+        //Timer
+        invincibilityTimerCooldown = invincibilityTimer.timerActualTime;
+        invincibilityTimer.Timer();
+        if (invincibilityTimer.timerIsEnded)
+        {
+            canTakeDamage = true;
+            invincibilityTimer.StopTimer();
+            invincibilityTimer.RestartTimer();
+            playerMeshRenderer.enabled = true;
         }
     }
 
@@ -110,23 +135,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void InvulnerabiltyManager()
+    {
+        canTakeDamage = false;
+        invincibilityTimer.StartTimer();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer != 3)
+        if (other.gameObject.tag == "DamageCollision")
         {
             if (playerHp <= 0)
             {
                 Debug.Log("GameOver !");
             }
-            else
+            else if(canTakeDamage)
             {
                 playerHp -= 1;
-                Debug.Log("Damage !");
+                Debug.Log("! Damage from : " + other.gameObject.name + other.gameObject.layer + "" + other.gameObject.tag);
+                InvulnerabiltyManager();
+                StartCoroutine(InvincibilityTic());
+                cameraControler.CameraShaking();
             }
         }
         if (other.gameObject.layer == 3)
         {
-            Debug.Log("ground !");
+            //Debug.Log("ground !");
             isOnGround = true;
         }
         if(other.gameObject.tag == "FaithBonus")
@@ -137,5 +171,29 @@ public class PlayerController : MonoBehaviour
         {
             faithController.LooseFaith();
         }
+    }
+
+    IEnumerator InvincibilityTic()
+    {
+        playerMeshRenderer.enabled = false;
+        yield return new WaitForSeconds(0.3f);
+        playerMeshRenderer.enabled = true;
+        yield return new WaitForSeconds(0.3f);
+        playerMeshRenderer.enabled = false;
+        yield return new WaitForSeconds(0.3f);
+        playerMeshRenderer.enabled = true;
+        yield return new WaitForSeconds(0.3f);
+        playerMeshRenderer.enabled = false;
+        yield return new WaitForSeconds(0.3f);
+        playerMeshRenderer.enabled = false;
+        yield return new WaitForSeconds(0.3f);
+        playerMeshRenderer.enabled = true;
+        yield return new WaitForSeconds(0.3f);
+        playerMeshRenderer.enabled = false;
+        yield return new WaitForSeconds(0.3f);
+        playerMeshRenderer.enabled = true;
+        yield return new WaitForSeconds(0.3f);
+        playerMeshRenderer.enabled = false;
+        yield return new WaitForSeconds(0.3f);
     }
 }

@@ -52,36 +52,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserBarrier
       objectReference: {fileID: 0}
+    - target: {fileID: 7977421121791696164, guid: 016cac78ac32e3140ae3153b019a9219, type: 3}
+      propertyPath: speedZ
+      value: -20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7784177157405832624, guid: 016cac78ac32e3140ae3153b019a9219, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5179597491415360705}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 016cac78ac32e3140ae3153b019a9219, type: 3}
---- !u!1 &2084166675222966713 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7784177157405832624, guid: 016cac78ac32e3140ae3153b019a9219, type: 3}
-  m_PrefabInstance: {fileID: 8136457984747062281}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5179597491415360705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2084166675222966713}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65b9dd50be90f744e9b99fe855821a43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  distanceX: 0
-  distanceY: 0
-  distanceZ: 20
-  speed: -20
-  repeatable: 0
 --- !u!4 &3775314864581982762 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4939918484299873827, guid: 016cac78ac32e3140ae3153b019a9219, type: 3}
@@ -97,7 +76,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 501025030112031732, guid: 2f3a251dbd2caa84d8541c8286f79f72, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 50.12776
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 501025030112031732, guid: 2f3a251dbd2caa84d8541c8286f79f72, type: 3}
       propertyPath: m_LocalPosition.y
@@ -105,7 +84,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 501025030112031732, guid: 2f3a251dbd2caa84d8541c8286f79f72, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10.412415
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 501025030112031732, guid: 2f3a251dbd2caa84d8541c8286f79f72, type: 3}
       propertyPath: m_LocalRotation.w

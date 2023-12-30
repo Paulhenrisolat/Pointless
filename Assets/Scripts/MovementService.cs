@@ -5,44 +5,45 @@ using UnityEngine;
 public class MovementService : MonoBehaviour
 {
     [SerializeField]
-    private float distanceX, distanceY, distanceZ, speed;
-    private float resultX, resultY, resultZ;
+    private float speedX, speedY, speedZ;
+    private float posX, posY, posZ;
 
     [SerializeField]
-    private bool repeatable;
+    private float rotationX, rotationY, rotationZ;
+    private float startRotX, startRotY, startRotZ;
+
+    [SerializeField]
+    private bool repeatable, canMove;
 
     // Start is called before the first frame update
     void Start()
     {
-        resultX = transform.position.x + distanceX;
-        resultY = transform.position.y + distanceY;
-        resultZ = transform.position.z + distanceZ;
+        posX = transform.position.x;
+        posY = transform.position.y;
+        posZ = transform.position.z;
+
+        startRotX = transform.eulerAngles.x;
+        startRotY = transform.eulerAngles.y;
+        startRotZ = transform.eulerAngles.z;
+        //Debug.Log("rot: x"+startRotX + " y" + startRotY + " z" + startRotZ);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (speed < 0)
+        if (canMove)
         {
-            if (transform.position.z < resultZ)
-            {
-                transform.position += transform.forward * (speed * Time.deltaTime);
-            }
-        }
-        if (speed > 0)
-        {
-            if (transform.position.x < resultX)
-            {
-                transform.position += transform.forward * (speed * Time.deltaTime);
-            }
-            if (transform.position.y < resultY)
-            {
-                transform.position += transform.forward * (speed * Time.deltaTime);
-            }
-            if (transform.position.z < resultZ)
-            {
-                transform.position += transform.forward * (speed * Time.deltaTime);
-            }
+            posX += speedX * Time.deltaTime;
+            posY += speedY * Time.deltaTime;
+            posZ += speedZ * Time.deltaTime;
+
+            startRotX += rotationX * Time.deltaTime;
+            startRotY += rotationY * Time.deltaTime;
+            startRotZ += rotationZ * Time.deltaTime;
+
+            this.transform.position = new Vector3(posX,posY,posZ);
+            //this.transform.rotation = new Quaternion(rotX,rotY,rotZ, rotW);
+            transform.eulerAngles = new Vector3(startRotX, startRotY, startRotZ);
         }
     }
 }

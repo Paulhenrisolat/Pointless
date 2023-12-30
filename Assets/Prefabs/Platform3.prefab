@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1428451886790750159, guid: 2f3a251dbd2caa84d8541c8286f79f72, type: 3}
       propertyPath: m_Name
-      value: Platform3 Variant
+      value: Platform3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -116,6 +116,22 @@ PrefabInstance:
     - target: {fileID: 7784177157405832624, guid: 016cac78ac32e3140ae3153b019a9219, type: 3}
       propertyPath: m_Name
       value: LaserBarrier
+      objectReference: {fileID: 0}
+    - target: {fileID: 7977421121791696164, guid: 016cac78ac32e3140ae3153b019a9219, type: 3}
+      propertyPath: canMove
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7977421121791696164, guid: 016cac78ac32e3140ae3153b019a9219, type: 3}
+      propertyPath: rotationX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7977421121791696164, guid: 016cac78ac32e3140ae3153b019a9219, type: 3}
+      propertyPath: rotationY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7977421121791696164, guid: 016cac78ac32e3140ae3153b019a9219, type: 3}
+      propertyPath: rotationZ
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
