@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         metersController = gameplayManager.GetComponent<MetersController>();
         uiController = gameplayManager.GetComponent<UiController>();
         faithController = gameplayManager.GetComponent<FaithController>();
-        cameraPlayer = GameObject.Find("MainCamera");
+        cameraPlayer = GameObject.Find("CameraHandler");
         cameraControler = cameraPlayer.GetComponent<CameraControler>();
         playerRigibody = this.GetComponent<Rigidbody>();
         playerMeshRenderer = this.GetComponentInChildren<MeshRenderer>();
@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("! Damage from : " + other.gameObject.name + other.gameObject.layer + "" + other.gameObject.tag);
                 InvulnerabiltyManager();
                 StartCoroutine(InvincibilityTic());
-                cameraControler.CameraShaking();
+                cameraControler.Shake();
             }
         }
         if (other.gameObject.layer == 3)

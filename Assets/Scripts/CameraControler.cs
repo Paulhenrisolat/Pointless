@@ -4,35 +4,45 @@ using UnityEngine;
 
 public class CameraControler : MonoBehaviour
 {
-    private Vector3 startingPos;
     [SerializeField]
-    private int powerShake, nbRandPos;
-    private float startX,startY,startZ;
+    private float powerShake, duration, slowDown;
+    [SerializeField]
+    private bool isShaking;
+
+    private float initialDuration;
+    [SerializeField]
+    private Transform anchorPos, cameraPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        startingPos = transform.position;
-        startX = transform.position.x;
-        startY = transform.position.y;
-        startZ = transform.position.z;
+        cameraPos = Camera.main.transform;
+        anchorPos = transform;
+        initialDuration = duration;
     }
-
     // Update is called once per frame
     void Update()
     {
-        
+        CameraShaking();
     }
 
-    public void CameraShaking()
+    public void Shake()
     {
-        for (int i = nbRandPos; i > 0; i--)
+        duration = initialDuration;
+    }
+
+    private void CameraShaking()
+    {
+        if (duration > 0)
         {
-            float randX = startX + Random.Range(0, powerShake);
-            float randY = startY + Random.Range(0, powerShake);
-            float randZ = startZ + Random.Range(0, powerShake);
-            Vector3 randPos = new Vector3(randX, randY, randZ);
-            transform.position = randPos;
+            isShaking = true;
+            cameraPos.position = anchorPos.position + Random.insideUnitSphere * powerShake;
+            duration -= Time.deltaTime * slowDown;
+        }
+        else
+        {
+            isShaking = false;
+            cameraPos.position = anchorPos.position;
         }
     }
 }
