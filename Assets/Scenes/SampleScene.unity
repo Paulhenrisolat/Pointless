@@ -1043,9 +1043,9 @@ MonoBehaviour:
   - {fileID: 7834338460987665164, guid: b5d8028196df00d4b8a49e1323fe2e33, type: 3}
   - {fileID: 7834338460987665164, guid: 7d1a0a181f504a94384045d4dc44bbf3, type: 3}
   GroundsOnScene: []
-  BonusPrefabs:
-  - {fileID: 785159591550211822, guid: 5bd10b0dd321d97419280b9c4e7c7922, type: 3}
-  - {fileID: 417297011817768888, guid: 451931e05848a4c47affe6c5d6176adb, type: 3}
+  CollectiblesPrefabs:
+  - {fileID: 2070128046}
+  - {fileID: 1149487065}
   GroundSize: 0
   Player: {fileID: 0}
   distDestroy: 0
@@ -1981,6 +1981,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1149487065 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 417297011817768888, guid: 451931e05848a4c47affe6c5d6176adb, type: 3}
+  m_PrefabInstance: {fileID: 161781763}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1179704457
 GameObject:
   m_ObjectHideFlags: 0
@@ -3937,6 +3942,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062197961}
   m_CullTransparentMesh: 1
+--- !u!1 &2070128046 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 785159591550211822, guid: 5bd10b0dd321d97419280b9c4e7c7922, type: 3}
+  m_PrefabInstance: {fileID: 1976511450}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2147016311
 GameObject:
   m_ObjectHideFlags: 0

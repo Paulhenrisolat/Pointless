@@ -7,7 +7,8 @@ public class PlatformController : MonoBehaviour
     public static PlatformController Instance;
 
     [SerializeField]
-    private GameObject[] GroundsPrefabs, GroundsOnScene, BonusPrefabs;
+    private GameObject[] GroundsPrefabs, GroundsOnScene, CollectiblesPrefabs;
+    private List<GameObject> CollectiblesInScene = new();
     public float GroundSize;
     [SerializeField]
     private GameObject Player;
@@ -55,6 +56,12 @@ public class PlatformController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PlatformManager();
+        CollectibleManager();
+    }
+
+    private void PlatformManager()
+    {
         for (int i = GroundsOnScene.Length - 1; i >= 0; i--)
         {
             GameObject ground = GroundsOnScene[i];
@@ -67,12 +74,41 @@ public class PlatformController : MonoBehaviour
                 int r = Random.Range(0, GroundsPrefabs.Length);
                 ground = Instantiate(GroundsPrefabs[r]);
                 ground.transform.position = new Vector3(0, 0.2f, z + groundWidth * GroundsOnScene.Length);
+                PlaceCollectible(ground);
                 GroundsOnScene[i] = ground;
             }
         }
-
     }
+    private void PlaceCollectible(GameObject platform)
+    {
+        Bounds platformBonds = platform.GetComponentInChildren<Transform>().Find("Plane").GetComponent<Collider>().bounds;
+        float maxZ = platform.transform.position.z + platformBonds.size.z/2;
+        float minZ = platform.transform.position.z - platformBonds.size.z/2;
+        float maxX = platform.transform.position.x + platformBonds.size.x/2;
+        float minX = platform.transform.position.x - platformBonds.size.x/2;
+        float randPositionZ = Random.Range(minZ, maxZ);
+        float randPositionX = Random.Range(minX, maxX);
 
+        int r = Random.Range(0, CollectiblesPrefabs.Length);
+        GameObject newCollectible = CollectiblesPrefabs[r];
+        newCollectible = Instantiate(newCollectible);
+        float heightCollectible = newCollectible.GetComponent<Collider>().bounds.size.y / 2;
+        newCollectible.transform.position = new Vector3(randPositionX,0.2f+heightCollectible, randPositionZ);
+        CollectiblesInScene.Add(newCollectible);
+    }
+    private void CollectibleManager()
+    {
+        for (int i = CollectiblesInScene.Count - 1; i>=0; i--)
+        {
+            GameObject collectible = CollectiblesInScene[i];
+
+            if (collectible.transform.position.z < Player.transform.position.z - distDestroy)
+            {
+                Destroy(collectible);
+                CollectiblesInScene.Remove(collectible);
+            }
+        }
+    }
     private void OnDestroy()
     {
         Instance = null;
