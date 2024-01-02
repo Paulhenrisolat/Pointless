@@ -166,10 +166,14 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.tag == "FaithBonus")
         {
             faithController.AddFaith();
+            ParticleSystem faithParticle = other.gameObject.GetComponentInChildren<ParticleSystem>();
+            faithParticle.Play();
         }
         if (other.gameObject.tag == "FaithMalus")
         {
             faithController.LooseFaith();
+            ParticleSystem faithParticle = other.gameObject.GetComponentInChildren<ParticleSystem>();
+            faithParticle.Play();
         }
     }
 

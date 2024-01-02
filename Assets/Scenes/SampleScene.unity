@@ -3195,7 +3195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerShake: 1
-  duration: 0.5
+  initialDuration: 0.5
   slowDown: 1
   isShaking: 0
   anchorPos: {fileID: 0}

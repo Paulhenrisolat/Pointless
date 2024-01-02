@@ -5,11 +5,11 @@ using UnityEngine;
 public class CameraControler : MonoBehaviour
 {
     [SerializeField]
-    private float powerShake, duration, slowDown;
+    private float powerShake, initialDuration, slowDown;
     [SerializeField]
     private bool isShaking;
 
-    private float initialDuration;
+    private float duration;
     [SerializeField]
     private Transform anchorPos, cameraPos;
 
@@ -18,7 +18,7 @@ public class CameraControler : MonoBehaviour
     {
         cameraPos = Camera.main.transform;
         anchorPos = transform;
-        initialDuration = duration;
+        duration = 0;
     }
     // Update is called once per frame
     void Update()
