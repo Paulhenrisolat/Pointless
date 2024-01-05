@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     {
         startSpeed = 10f;
         jumpSpeed = 500f;
-        playerHp = 100;
+        playerHp = 5;
         minX = -10f;
         maxX = 10f;
         minY = 0.5f;
