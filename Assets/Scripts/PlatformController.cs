@@ -9,6 +9,7 @@ public class PlatformController : MonoBehaviour
     [SerializeField]
     private GameObject[] GroundsPrefabs, GroundsOnScene, CollectiblesPrefabs;
     private List<GameObject> CollectiblesInScene = new();
+    [SerializeField]
     public float GroundSize;
     [SerializeField]
     private GameObject Player;

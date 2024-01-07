@@ -7,24 +7,21 @@ public class PlatformControllerV2 : MonoBehaviour
     public static PlatformControllerV2 Instance;
 
     [SerializeField]
-    private GameObject[] GroundsPrefabs, GroundsOnScene;
+    private GameObject[] platformsPrefabs;
 
     [SerializeField]
-    private float nextPosPlatform;
-
-    [SerializeField]
-    private int nextIdPlatform;
-
-    [SerializeField]
-    private float distDestroy;
+    private List<GameObject> platformsOnScene = new();
 
     [SerializeField]
     private int maxPlatform;
+    public float playerPosZ { get; private set; }
+    public float distDestroy { get; private set; }
 
-    private GameObject Player;
+    private float nextPosPlatform;
+    private GameObject player;
 
     private PlayerController playerController;
-
+    private CollectibleControler collectibleControler;
     private void Awake()
     {
         if (Instance != null)
@@ -37,50 +34,53 @@ public class PlatformControllerV2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.Find("Player");
-        playerController = Player.GetComponent<PlayerController>();
+        player = GameObject.Find("Player");
+        playerController = player.GetComponent<PlayerController>();
+        collectibleControler = GetComponent<CollectibleControler>();
+        playerPosZ = playerController.positionZ;
 
-        maxPlatform = 3;
-        distDestroy = 10f;
-        nextIdPlatform = 0;
-        nextPosPlatform = 0;
-
-        if (GroundsOnScene.Length < maxPlatform)
-        {
-            int r = Random.Range(0, GroundsPrefabs.Length);
-            GameObject newPlatform;
-            newPlatform = Instantiate(GroundsPrefabs[r]);
-            newPlatform.transform.position = new Vector3(0, 0.2f, nextPosPlatform);
-            GroundsOnScene[nextIdPlatform] = newPlatform;
-            nextIdPlatform++;
-            nextPosPlatform += newPlatform.transform.position.z + newPlatform.GetComponentInChildren<Transform>().Find("Plane").GetComponent<Collider>().bounds.size.z;
-        }
+        maxPlatform = 5;
+        distDestroy = 20f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if(GroundsOnScene.Length < maxPlatform)
-        //{
-        //    int r = Random.Range(0, GroundsPrefabs.Length);
-        //    GameObject newPlatform;
-        //    newPlatform = Instantiate(GroundsPrefabs[r]);
-        //    newPlatform.transform.position = new Vector3(0,0.2f,nextPosPlatform);
-        //    GroundsOnScene[nextIdPlatform] = newPlatform;
-        //    nextIdPlatform++;
-        //    nextPosPlatform = nextPosPlatform + newPlatform.transform.position.z;
-        //}
+        playerPosZ = playerController.positionZ;
+        PlacePlatform();
+        PlatformManager();
+    }
 
-        for (int i = GroundsOnScene.Length - 1; i >= 0; i--)
+    private void PlacePlatform()
+    {
+        if (platformsOnScene.Count < maxPlatform)
         {
-            GameObject platform = GroundsOnScene[i];
+            int randPlatform = Random.Range(0, platformsPrefabs.Length);
+            GameObject newPlatform = platformsPrefabs[randPlatform];
+            newPlatform = Instantiate(newPlatform);
 
-            if (platform.transform.position.z + platform.GetComponentInChildren<Transform>().Find("Plane").GetComponent<Collider>().bounds.size.z / 2 < Player.transform.position.z - distDestroy)
+            float platformSize = newPlatform.GetComponentInChildren<Transform>().Find("Plane").GetComponent<Collider>().bounds.size.z;
+            newPlatform.transform.position = new Vector3(0,0.2f,nextPosPlatform + platformSize/2);
+            nextPosPlatform += platformSize;
+            
+            collectibleControler.PlaceCollectible(newPlatform);
+
+            platformsOnScene.Add(newPlatform);
+        }
+    }
+
+    private void PlatformManager()
+    {
+        for (int i = platformsOnScene.Count - 1; i >= 0; i--)
+        {
+            GameObject platform = platformsOnScene[i];
+            float platformPosZ = platform.transform.position.z;
+            if(platformPosZ < playerPosZ - distDestroy)
             {
                 Destroy(platform);
+                platformsOnScene.Remove(platform);
             }
         }
-
     }
 
     private void OnDestroy()

@@ -28,7 +28,10 @@ public class CameraControler : MonoBehaviour
 
     public void Shake()
     {
-        duration = initialDuration;
+        if (!isShaking)
+        {
+            duration = initialDuration;
+        }
     }
 
     private void CameraShaking()

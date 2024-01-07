@@ -19,14 +19,15 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private double invincibilityTimerCooldown;
+    
     private TimeService invincibilityTimer;
-
     private GameObject gameplayManager;
     private GameObject cameraPlayer;
     private MetersController metersController;
     private UiController uiController;
     private FaithController faithController;
     private CameraControler cameraControler;
+    private SoundController soundController;
 
     private Rigidbody playerRigibody;
     private MeshRenderer playerMeshRenderer;
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
         metersController = gameplayManager.GetComponent<MetersController>();
         uiController = gameplayManager.GetComponent<UiController>();
         faithController = gameplayManager.GetComponent<FaithController>();
+        soundController = gameplayManager.GetComponent<SoundController>();
         cameraPlayer = GameObject.Find("CameraHandler");
         cameraControler = cameraPlayer.GetComponent<CameraControler>();
         playerRigibody = this.GetComponent<Rigidbody>();
@@ -152,6 +154,8 @@ public class PlayerController : MonoBehaviour
             else if(canTakeDamage)
             {
                 playerHp -= 1;
+                int rnb = Random.Range(1,3);
+                soundController.PlaySound("glass"+rnb);
                 Debug.Log("! Damage from : " + other.gameObject.name + other.gameObject.layer + "" + other.gameObject.tag);
                 InvulnerabiltyManager();
                 StartCoroutine(InvincibilityTic());
