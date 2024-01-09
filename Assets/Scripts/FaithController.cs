@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class FaithController : MonoBehaviour
 {
-    [SerializeField]
-    private int faith;
-    [SerializeField]
     public string entityStatus { get; private set; }
+    public int faith { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -43,12 +41,15 @@ public class FaithController : MonoBehaviour
     public void AddFaith()
     {
         faith++;
-        Debug.Log("AddFaith");
+        Debug.Log("AddFaith("+faith+")");
     }
 
     public void LooseFaith()
     {
-        faith--;
-        Debug.Log("LooseFaith");
+        if (faith > 0)
+        {
+            faith--;
+            Debug.Log("LooseFaith(" + faith + ")");
+        }
     }
 }

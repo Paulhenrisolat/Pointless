@@ -7,13 +7,16 @@ public class PlatformControllerV2 : MonoBehaviour
     public static PlatformControllerV2 Instance;
 
     [SerializeField]
-    private GameObject[] platformsPrefabs;
+    private GameObject[] platformsPrefabs,platformsRuin,platformsForest,platformsHell,platformsHeaven,platformsTrap,actualStage;
 
     [SerializeField]
     private List<GameObject> platformsOnScene = new();
 
     [SerializeField]
-    private int maxPlatform;
+    private int maxPlatform, trapChance;
+
+    public string stage { get; private set; }
+
     public float playerPosZ { get; private set; }
     public float distDestroy { get; private set; }
 
@@ -22,6 +25,8 @@ public class PlatformControllerV2 : MonoBehaviour
 
     private PlayerController playerController;
     private CollectibleControler collectibleControler;
+    private FaithController faithController;
+
     private void Awake()
     {
         if (Instance != null)
@@ -37,9 +42,11 @@ public class PlatformControllerV2 : MonoBehaviour
         player = GameObject.Find("Player");
         playerController = player.GetComponent<PlayerController>();
         collectibleControler = GetComponent<CollectibleControler>();
+        faithController = GetComponent<FaithController>();
+
         playerPosZ = playerController.positionZ;
 
-        maxPlatform = 5;
+        maxPlatform = 7;
         distDestroy = 20f;
     }
 
@@ -47,6 +54,7 @@ public class PlatformControllerV2 : MonoBehaviour
     void Update()
     {
         playerPosZ = playerController.positionZ;
+        StageManager();
         PlacePlatform();
         PlatformManager();
     }
@@ -55,8 +63,19 @@ public class PlatformControllerV2 : MonoBehaviour
     {
         if (platformsOnScene.Count < maxPlatform)
         {
-            int randPlatform = Random.Range(0, platformsPrefabs.Length);
-            GameObject newPlatform = platformsPrefabs[randPlatform];
+            GameObject newPlatform;
+
+            if (CanPlaceTrap())
+            {
+                int randPlatform = Random.Range(0, platformsTrap.Length);
+                newPlatform = platformsTrap[randPlatform];
+            }
+            else
+            {
+                int randPlatform = Random.Range(0, actualStage.Length);
+                newPlatform = actualStage[randPlatform];
+            }
+
             newPlatform = Instantiate(newPlatform);
 
             float platformSize = newPlatform.GetComponentInChildren<Transform>().Find("Plane").GetComponent<Collider>().bounds.size.z;
@@ -80,6 +99,45 @@ public class PlatformControllerV2 : MonoBehaviour
                 Destroy(platform);
                 platformsOnScene.Remove(platform);
             }
+        }
+    }
+    private bool CanPlaceTrap()
+    {
+        int r = Random.Range(0,faithController.faith);
+        if (r==0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+    }
+    private void StageManager()
+    {
+        switch (playerPosZ,playerPosZ)
+        {
+            case ( > 0, < 1000):
+                stage = "ruin";
+                actualStage = new GameObject[platformsRuin.Length];
+                platformsRuin.CopyTo(actualStage,0);
+                break;
+            case ( > 1000, < 2000):
+                stage = "forest";
+                actualStage = new GameObject[platformsForest.Length];
+                platformsForest.CopyTo(actualStage, 0);
+                break;
+            case ( > 2000, < 3000):
+                stage = "hell";
+                actualStage = new GameObject[platformsHell.Length];
+                platformsHell.CopyTo(actualStage, 0);
+                break;
+            case ( > 3000, < 40000):
+                stage = "heaven";
+                actualStage = new GameObject[platformsHeaven.Length];
+                platformsHeaven.CopyTo(actualStage, 0);
+                break;
         }
     }
 

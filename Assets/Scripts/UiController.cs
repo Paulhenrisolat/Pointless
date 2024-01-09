@@ -12,9 +12,10 @@ public class UiController : MonoBehaviour
     private MetersController metersController;
     private PlayerController playerController;
     private FaithController faithController;
+    private PlatformControllerV2 platformControllerV2;
 
     [SerializeField]
-    private TMP_Text Mood, MetersTxt, PlayerHpTxt, score;
+    private TMP_Text Mood, MetersTxt, PlayerHpTxt, score, stage;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +30,7 @@ public class UiController : MonoBehaviour
         //other
         metersController = this.gameObject.GetComponent<MetersController>();
         faithController = this.gameObject.GetComponent<FaithController>();
+        platformControllerV2 = this.gameObject.GetComponent<PlatformControllerV2>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
@@ -40,6 +42,7 @@ public class UiController : MonoBehaviour
         MetersTxt.text = "Meters : " + metersController.Meters;
         PlayerHpTxt.text = playerController.playerHp.ToString();
         Mood.text = "Mood: " + faithController.entityStatus;
+        stage.text = platformControllerV2.stage;
     }
 
     private void GameOver()

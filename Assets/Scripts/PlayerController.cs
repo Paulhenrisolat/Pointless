@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody playerRigibody;
     private MeshRenderer playerMeshRenderer;
+    private TrailRenderer playerTrailRenderer;
 
     private float minX, maxX, minY, maxY;
 
@@ -60,6 +61,7 @@ public class PlayerController : MonoBehaviour
         cameraControler = cameraPlayer.GetComponent<CameraControler>();
         playerRigibody = this.GetComponent<Rigidbody>();
         playerMeshRenderer = this.GetComponentInChildren<MeshRenderer>();
+        playerTrailRenderer = this.GetComponentInChildren<TrailRenderer>();
         //timer
         invincibilityTimer = new TimeService(3f);
         invincibilityTimerCooldown = invincibilityTimer.timerActualTime;
@@ -101,6 +103,7 @@ public class PlayerController : MonoBehaviour
             invincibilityTimer.StopTimer();
             invincibilityTimer.RestartTimer();
             playerMeshRenderer.enabled = true;
+            playerTrailRenderer.enabled = true;
         }
     }
 
@@ -184,24 +187,34 @@ public class PlayerController : MonoBehaviour
     IEnumerator InvincibilityTic()
     {
         playerMeshRenderer.enabled = false;
+        playerTrailRenderer.enabled = false;
         yield return new WaitForSeconds(0.3f);
         playerMeshRenderer.enabled = true;
+        playerTrailRenderer.enabled = true;
         yield return new WaitForSeconds(0.3f);
         playerMeshRenderer.enabled = false;
+        playerTrailRenderer.enabled = false;
         yield return new WaitForSeconds(0.3f);
         playerMeshRenderer.enabled = true;
+        playerTrailRenderer.enabled = true;
         yield return new WaitForSeconds(0.3f);
         playerMeshRenderer.enabled = false;
+        playerTrailRenderer.enabled = false;
         yield return new WaitForSeconds(0.3f);
         playerMeshRenderer.enabled = false;
+        playerTrailRenderer.enabled = false;
         yield return new WaitForSeconds(0.3f);
         playerMeshRenderer.enabled = true;
+        playerTrailRenderer.enabled = true;
         yield return new WaitForSeconds(0.3f);
         playerMeshRenderer.enabled = false;
+        playerTrailRenderer.enabled = false;
         yield return new WaitForSeconds(0.3f);
         playerMeshRenderer.enabled = true;
+        playerTrailRenderer.enabled = true;
         yield return new WaitForSeconds(0.3f);
         playerMeshRenderer.enabled = false;
+        playerTrailRenderer.enabled = false;
         yield return new WaitForSeconds(0.3f);
     }
 }
