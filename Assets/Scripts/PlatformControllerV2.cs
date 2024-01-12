@@ -16,7 +16,6 @@ public class PlatformControllerV2 : MonoBehaviour
     private int maxPlatform, trapChance;
 
     public string stage { get; private set; }
-
     public float playerPosZ { get; private set; }
     public float distDestroy { get; private set; }
 
@@ -94,7 +93,8 @@ public class PlatformControllerV2 : MonoBehaviour
         {
             GameObject platform = platformsOnScene[i];
             float platformPosZ = platform.transform.position.z;
-            if(platformPosZ < playerPosZ - distDestroy)
+            float platformSizeZ = platform.GetComponentInChildren<Transform>().Find("Plane").GetComponent<Collider>().bounds.size.z;
+            if (platformPosZ < playerPosZ - (distDestroy + platformSizeZ))
             {
                 Destroy(platform);
                 platformsOnScene.Remove(platform);

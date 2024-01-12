@@ -2275,6 +2275,7 @@ MonoBehaviour:
   - {fileID: 5132459896022623712, guid: c3c33af53cbebe246988e72dc2c04a8f, type: 3}
   - {fileID: 1428451886790750159, guid: 7519d1e428c11354db8b10f6aed99264, type: 3}
   - {fileID: 1428451886790750159, guid: 61e1ef625516b174a95c76afbf0f1054, type: 3}
+  - {fileID: 1428451886790750159, guid: ac145bb3651805048899ee800f715d65, type: 3}
   platformsForest:
   - {fileID: 6257962026723497747, guid: 0e5e9ee9388ea894cbfebf2399b923cd, type: 3}
   platformsHell:
