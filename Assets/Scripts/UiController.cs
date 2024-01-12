@@ -13,9 +13,10 @@ public class UiController : MonoBehaviour
     private PlayerController playerController;
     private FaithController faithController;
     private PlatformControllerV2 platformControllerV2;
+    private SaveController saveController;
 
     [SerializeField]
-    private TMP_Text Mood, MetersTxt, PlayerHpTxt, score, stage;
+    private TMP_Text Mood, MetersTxt, PlayerHpTxt, score, stage, scoreboard;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +32,9 @@ public class UiController : MonoBehaviour
         metersController = this.gameObject.GetComponent<MetersController>();
         faithController = this.gameObject.GetComponent<FaithController>();
         platformControllerV2 = this.gameObject.GetComponent<PlatformControllerV2>();
+        saveController = this.gameObject.GetComponent<SaveController>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        scoreboard.text = "test<br>test test<br>test:)";
     }
 
     // Update is called once per frame
@@ -51,6 +54,18 @@ public class UiController : MonoBehaviour
         {
             gameOver.SetActive(true);
             score.text = "Score : " + metersController.Meters;
+            if(saveController.leaderBoard != null && saveController.leaderBoard.playerScore != null)
+            {
+                foreach (var playerScore in saveController.leaderBoard.playerScore)
+                {
+                    if (!playerScore.isShown)
+                    {
+                        scoreboard.text += playerScore.name + " : " + playerScore.meters;
+                        playerScore.isShown = true;
+                    }
+                }
+            }
+
         }
     }
 

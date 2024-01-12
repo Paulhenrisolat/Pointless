@@ -159,6 +159,8 @@ public class PlayerController : MonoBehaviour
                 playerHp -= 1;
                 int rnb = Random.Range(1,3);
                 soundController.PlaySound("glass"+rnb);
+                //ParticleSystem playerParticle = GetComponentInChildren<ParticleSystem>();
+                //playerParticle.Play();
                 Debug.Log("! Damage from : " + other.gameObject.name + other.gameObject.layer + "" + other.gameObject.tag);
                 InvulnerabiltyManager();
                 StartCoroutine(InvincibilityTic());
