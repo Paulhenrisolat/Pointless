@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Linq;
 
 public class SaveController : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class SaveController : MonoBehaviour
     [SerializeField]
     private PlayerData playerData = new PlayerData();
     [SerializeField]
-    public LeaderBoard leaderBoard { get; private set; }
+    private LeaderBoard leaderBoard;
+
+    public List<PlayerScore> scoreList { get; private set; }
 
     private MetersController metersController;
     private PlayerController playerController;
@@ -50,22 +53,38 @@ public class SaveController : MonoBehaviour
     }
     public void AddScore()
     {
+        Debug.Log("ptn");
         PlayerScore playerScore = new();
         playerScore.name = scoreNameInput.text;
         playerScore.meters = (float)Math.Round(metersController.Meters, 2);
         playerScore.isShown = false;
-        leaderBoard.playerScore.Add(playerScore);
+        Debug.Log(playerScore.name + "/" + playerScore.meters);
+        leaderBoard.playerScores.Add(playerScore);
 
-        string leaderBoardDataJson = JsonUtility.ToJson(leaderBoard);
-        Debug.Log(savePathLeaderBoard);
-        File.WriteAllText(savePathLeaderBoard, leaderBoardDataJson);
-        Debug.Log("LeaderBoard Saved");
+        CreateLeaderBoard();
+        //string leaderBoardDataJson = JsonUtility.ToJson(leaderBoard);
+        //Debug.Log(savePathLeaderBoard);
+        //File.WriteAllText(savePathLeaderBoard, leaderBoardDataJson);
+        //Debug.Log("LeaderBoard Saved");
     }
     public void LoadLeaderBoard()
     {
         string leaderBoardDataJson = File.ReadAllText(savePathLeaderBoard);
         leaderBoard = JsonUtility.FromJson<LeaderBoard>(leaderBoardDataJson);
         Debug.Log("LeaderBoard Loaded");
+        scoreList = leaderBoard.playerScores;
+        scoreList = scoreList.OrderByDescending(PlayerScore => PlayerScore.meters).ToList();
+        foreach(PlayerScore playerScore in scoreList)
+        {
+            playerScore.isShown = false;
+        }
+    }
+    public void CreateLeaderBoard()
+    {
+        string leaderBoardDataJson = JsonUtility.ToJson(leaderBoard);
+        Debug.Log(savePathLeaderBoard);
+        File.WriteAllText(savePathLeaderBoard, leaderBoardDataJson);
+        Debug.Log("LeaderBoard Saved");
     }
 }
 
@@ -85,5 +104,5 @@ public class PlayerScore
 [Serializable]
 public class LeaderBoard
 {
-    public List<PlayerScore> playerScore;
+    public List<PlayerScore> playerScores;
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Linq;
 
 public class UiController : MonoBehaviour
 {
@@ -34,7 +35,6 @@ public class UiController : MonoBehaviour
         platformControllerV2 = this.gameObject.GetComponent<PlatformControllerV2>();
         saveController = this.gameObject.GetComponent<SaveController>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-        scoreboard.text = "test<br>test test<br>test:)";
     }
 
     // Update is called once per frame
@@ -50,22 +50,44 @@ public class UiController : MonoBehaviour
 
     private void GameOver()
     {
-        if(playerController.playerHp <= 0)
+        if (playerController.playerHp <= 0)
         {
             gameOver.SetActive(true);
             score.text = "Score : " + metersController.Meters;
-            if(saveController.leaderBoard != null && saveController.leaderBoard.playerScore != null)
+            int podiumPlace = 1;
+            if (saveController.scoreList != null)
             {
-                foreach (var playerScore in saveController.leaderBoard.playerScore)
+                foreach (var playerScore in saveController.scoreList)
                 {
                     if (!playerScore.isShown)
                     {
-                        scoreboard.text += playerScore.name + " : " + playerScore.meters;
+                        scoreboard.text += playerScore.name + " : " + playerScore.meters + Podium(podiumPlace) + "<br>";
                         playerScore.isShown = true;
+                        podiumPlace += 1;
                     }
                 }
             }
 
+        }
+    }
+
+    private string Podium(int place)
+    {
+        if(place == 1)
+        {
+            return "<color=#FFCE26> - 1er -</color>";
+        }
+        if (place == 2)
+        {
+            return "<color=#C1C1C1> - 2eme -</color>";
+        }
+        if (place == 3)
+        {
+            return "<color=#BD8350> - 3eme -</color>";
+        }
+        else
+        {
+            return "";
         }
     }
 
