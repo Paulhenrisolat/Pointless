@@ -13,7 +13,9 @@ public class MovementService : MonoBehaviour
     private float startRotX, startRotY, startRotZ;
 
     [SerializeField]
-    private bool repeatable, canMove;
+    private bool canMove, randomSpeedX, randomSpeedY, randomSpeedZ;
+    [SerializeField]
+    private float randSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +27,19 @@ public class MovementService : MonoBehaviour
         startRotX = transform.eulerAngles.x;
         startRotY = transform.eulerAngles.y;
         startRotZ = transform.eulerAngles.z;
-        //Debug.Log("rot: x"+startRotX + " y" + startRotY + " z" + startRotZ);
+
+        if (randomSpeedX)
+        {
+            speedX = Random.Range(-randSpeed, randSpeed);
+        }
+        if (randomSpeedY)
+        {
+            speedY = Random.Range(-randSpeed, randSpeed);
+        }
+        if (randomSpeedZ)
+        {
+            speedZ = Random.Range(-randSpeed, randSpeed);
+        }
     }
 
     // Update is called once per frame

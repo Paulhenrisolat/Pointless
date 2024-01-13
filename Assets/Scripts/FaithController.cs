@@ -27,10 +27,10 @@ public class FaithController : MonoBehaviour
                 entityStatus = "Angry";
                 break;
             case int n when (n >= 1 && n <= 9):
-                entityStatus = "neutral";
+                entityStatus = "Frustrated";
                 break;
             case int n when (n >= 10 && n <= 19):
-                entityStatus = "Passif";
+                entityStatus = "Neutral";
                 break;
             case int n when (n >= 20):
                 entityStatus = "Happy";

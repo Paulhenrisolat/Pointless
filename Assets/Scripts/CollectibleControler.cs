@@ -6,7 +6,7 @@ public class CollectibleControler : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] CollectiblesPrefabs;
-    private List<GameObject> CollectiblesInScene = new();
+    public List<GameObject> CollectiblesInScene = new();
 
     private GameObject gameplayManager;
     private PlatformControllerV2 platformControllerV2;
@@ -44,6 +44,7 @@ public class CollectibleControler : MonoBehaviour
         newCollectible.transform.position = new Vector3(randPositionX, 0.2f + heightCollectible, randPositionZ);
         CollectiblesInScene.Add(newCollectible);
     }
+
     private void CollectibleManager()
     {
         for (int i = CollectiblesInScene.Count - 1; i >= 0; i--)
