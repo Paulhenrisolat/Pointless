@@ -719,6 +719,7 @@ GameObject:
   - component: {fileID: 5929229165512507090}
   - component: {fileID: 423526177435983346}
   - component: {fileID: 7723326319000404807}
+  - component: {fileID: 9035901693145877681}
   m_Layer: 0
   m_Name: Cube (6)
   m_TagString: Untagged
@@ -792,6 +793,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &9035901693145877681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3956753792801973013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65b9dd50be90f744e9b99fe855821a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedX: 0
+  speedY: 0
+  speedZ: 0
+  rotationX: 0
+  rotationY: 50
+  rotationZ: 0
+  canMove: 1
+  randomSpeedX: 0
+  randomSpeedY: 0
+  randomSpeedZ: 0
+  randSpeed: 0
 --- !u!1 &4002743512868940245
 GameObject:
   m_ObjectHideFlags: 0
@@ -1101,8 +1125,11 @@ MonoBehaviour:
   rotationX: 0
   rotationY: 50
   rotationZ: 2
-  repeatable: 0
   canMove: 1
+  randomSpeedX: 0
+  randomSpeedY: 0
+  randomSpeedZ: 0
+  randSpeed: 0
 --- !u!1 &5796121961254445667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1554,7 +1581,7 @@ GameObject:
   - component: {fileID: 7625530245159067300}
   m_Layer: 0
   m_Name: Cylinder (5)
-  m_TagString: DamageCollision
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1810,6 +1837,7 @@ GameObject:
   - component: {fileID: 6983210250872459885}
   - component: {fileID: 8137216794069451965}
   - component: {fileID: 2043770356461640275}
+  - component: {fileID: 2887714444326268568}
   m_Layer: 0
   m_Name: Cube (7)
   m_TagString: Untagged
@@ -1883,6 +1911,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2887714444326268568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8975373716249948327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65b9dd50be90f744e9b99fe855821a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedX: 0
+  speedY: 0
+  speedZ: 0
+  rotationX: 0
+  rotationY: 0
+  rotationZ: 50
+  canMove: 1
+  randomSpeedX: 0
+  randomSpeedY: 0
+  randomSpeedZ: 0
+  randSpeed: 0
 --- !u!1 &8987842530372936861
 GameObject:
   m_ObjectHideFlags: 0

@@ -123,17 +123,17 @@ public class PlatformControllerV2 : MonoBehaviour
                 actualStage = new GameObject[platformsRuin.Length];
                 platformsRuin.CopyTo(actualStage,0);
                 break;
-            case ( > 1000, < 2000):
+            case ( > 1000, < 3000):
                 stage = "forest";
                 actualStage = new GameObject[platformsForest.Length];
                 platformsForest.CopyTo(actualStage, 0);
                 break;
-            case ( > 2000, < 3000):
+            case ( > 3000, < 6000):
                 stage = "hell";
                 actualStage = new GameObject[platformsHell.Length];
                 platformsHell.CopyTo(actualStage, 0);
                 break;
-            case ( > 3000, < 40000):
+            case ( > 6000, < 40000):
                 stage = "heaven";
                 actualStage = new GameObject[platformsHeaven.Length];
                 platformsHeaven.CopyTo(actualStage, 0);

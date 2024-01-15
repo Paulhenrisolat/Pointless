@@ -122,21 +122,30 @@ public class PlayerController : MonoBehaviour
 
     private void JumpManager()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround)
-        {
-            playerRigibody.velocity = new Vector3(0, 0, 0);
-            playerRigibody.AddForce(Vector3.up * jumpSpeed);
-            isOnGround = false;
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && !isOnGround && jumpLeft > 0)
-        {
-            playerRigibody.velocity = new Vector3(0, 0, 0);
-            playerRigibody.AddForce(Vector3.up * jumpSpeed);
-            jumpLeft--;
-        }
         if (isOnGround)
         {
             jumpLeft = 2;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                playerRigibody.velocity = new Vector3(0, 0, 0);
+                playerRigibody.AddForce(Vector3.up * jumpSpeed);
+                isOnGround = false;
+            }
+        }
+        if (!isOnGround)
+        {
+            if (Input.GetKeyDown(KeyCode.Space) && jumpLeft > 0)
+            {
+                playerRigibody.velocity = new Vector3(0, 0, 0);
+                playerRigibody.AddForce(Vector3.up * jumpSpeed);
+                jumpLeft--;
+            }
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                playerRigibody.velocity = new Vector3(0, 0, 0);
+                playerRigibody.AddForce(Vector3.down * jumpSpeed * 5);
+                jumpLeft--;
+            }
         }
     }
 

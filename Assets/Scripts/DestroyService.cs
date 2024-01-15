@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class DestroyService : MonoBehaviour
 {
-    CollectibleControler collectibleControler;
+    [SerializeField]
+    private List<MeshRenderer> rendererList;
 
     private void Start()
     {
-        collectibleControler = GameObject.Find("GameplayManager").GetComponent<CollectibleControler>();    
     }
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-            Destroy(this.gameObject);
-            collectibleControler.CollectiblesInScene.Remove(this.gameObject);
+            foreach(MeshRenderer meshRenderer in rendererList)
+            {
+                meshRenderer.enabled = false;
+            }
         }
     }
 }

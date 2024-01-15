@@ -15,9 +15,12 @@ public class UiController : MonoBehaviour
     private FaithController faithController;
     private PlatformControllerV2 platformControllerV2;
     private SaveController saveController;
+    private SpriteRenderer lifeBarRenderer;
 
     [SerializeField]
     private TMP_Text Mood, MetersTxt, PlayerHpTxt, score, stage, scoreboard;
+    [SerializeField]
+    private Sprite lifebar1, lifebar2, lifebar3, lifebar4, lifebar5;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +38,7 @@ public class UiController : MonoBehaviour
         platformControllerV2 = this.gameObject.GetComponent<PlatformControllerV2>();
         saveController = this.gameObject.GetComponent<SaveController>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        lifeBarRenderer = GameObject.Find("LifeBar").GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -42,6 +46,7 @@ public class UiController : MonoBehaviour
     {
         Pause();
         GameOver();
+        LifeRenderManager();
         MetersTxt.text = "Meters : " + metersController.Meters;
         PlayerHpTxt.text = playerController.playerHp.ToString();
         Mood.text = "Mood: " + faithController.entityStatus;
@@ -121,5 +126,31 @@ public class UiController : MonoBehaviour
     public void DisablePause()
     {
         pauseIsOn = false;
+    }
+
+    private void LifeRenderManager()
+    {
+        switch (playerController.playerHp)
+        {
+            case 0:
+                lifeBarRenderer.sprite = null;
+                break;
+            case 1:
+                lifeBarRenderer.sprite = lifebar5;
+                break;
+            case 2:
+                lifeBarRenderer.sprite = lifebar4;
+                break;
+            case 3:
+                lifeBarRenderer.sprite = lifebar3;
+                break;
+            case 4:
+                lifeBarRenderer.sprite = lifebar2;
+                break;
+            case 5:
+                lifeBarRenderer.sprite = lifebar1;
+                break;
+        }
+        
     }
 }

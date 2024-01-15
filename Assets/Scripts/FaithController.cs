@@ -48,7 +48,7 @@ public class FaithController : MonoBehaviour
     {
         if (faith > 0)
         {
-            faith--;
+            faith-=2;
             Debug.Log("LooseFaith(" + faith + ")");
         }
     }
