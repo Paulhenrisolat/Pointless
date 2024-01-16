@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     public int playerHp { get; private set; }
     public float startingPosition { get; set; }
     public float positionZ { get { return transform.position.z; } set { transform.position = new Vector3(transform.position.x, transform.position.y, value); } }
-
+    public bool isDead { get; private set; }
     [SerializeField]
     private float startSpeed, currentSpeed, speedMultiplier, jumpSpeed, difficultyMultiplier;
 
@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        isDead = false;
         startSpeed = 10f;
         jumpSpeed = 500f;
         playerHp = 5;
@@ -70,10 +71,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!uiController.pauseIsOn)
+        LifeManager();
+        if (!uiController.pauseIsOn && !isDead)
         {
             SpeedManager();
             JumpManager();
+            playerRigibody.constraints = RigidbodyConstraints.None;
+            playerRigibody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        }
+        if (uiController.pauseIsOn)
+        {
+            playerRigibody.constraints = RigidbodyConstraints.FreezeAll;
         }
 
         //limit
@@ -155,15 +163,25 @@ public class PlayerController : MonoBehaviour
         invincibilityTimer.StartTimer();
     }
 
+    private void LifeManager()
+    {
+        if (playerHp <= 0)
+        {
+            Debug.Log("GameOver !");
+            isDead = true;
+            playerRigibody.constraints = RigidbodyConstraints.FreezeAll;
+            if(playerMeshRenderer.enabled == true)
+            {
+                playerMeshRenderer.enabled = false;
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "DamageCollision")
         {
-            if (playerHp <= 0)
-            {
-                Debug.Log("GameOver !");
-            }
-            else if(canTakeDamage)
+            if(canTakeDamage)
             {
                 playerHp -= 1;
                 int rnb = Random.Range(1,3);

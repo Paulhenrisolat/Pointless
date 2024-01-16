@@ -48,14 +48,17 @@ public class UiController : MonoBehaviour
         GameOver();
         LifeRenderManager();
         MetersTxt.text = "Meters : " + metersController.Meters;
-        PlayerHpTxt.text = playerController.playerHp.ToString();
         Mood.text = "Mood: " + faithController.entityStatus;
         stage.text = platformControllerV2.stage;
+        if(PlayerHpTxt != null)
+        {
+            PlayerHpTxt.text = playerController.playerHp.ToString();
+        }
     }
 
     private void GameOver()
     {
-        if (playerController.playerHp <= 0)
+        if (playerController.isDead)
         {
             gameOver.SetActive(true);
             score.text = "Score : " + metersController.Meters;
@@ -98,7 +101,7 @@ public class UiController : MonoBehaviour
 
     private void Pause()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !playerController.isDead)
         {
             if (!pauseIsOn)
             {

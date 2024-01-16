@@ -17,9 +17,13 @@ public class MovementService : MonoBehaviour
     [SerializeField]
     private float randSpeed;
 
+    private UiController uiController;
+
     // Start is called before the first frame update
     void Start()
     {
+        uiController = GameObject.Find("GameplayManager").GetComponent<UiController>();
+
         posX = transform.position.x;
         posY = transform.position.y;
         posZ = transform.position.z;
@@ -45,7 +49,7 @@ public class MovementService : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canMove)
+        if (canMove && !uiController.pauseIsOn)
         {
             posX += speedX * Time.deltaTime;
             posY += speedY * Time.deltaTime;
