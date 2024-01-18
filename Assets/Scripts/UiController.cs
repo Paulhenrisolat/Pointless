@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using UnityEngine.UI;
 
 public class UiController : MonoBehaviour
 {
@@ -18,9 +19,11 @@ public class UiController : MonoBehaviour
     private SpriteRenderer lifeBarRenderer;
 
     [SerializeField]
+    private RawImage faceMood;
+    [SerializeField]
     private TMP_Text Mood, MetersTxt, PlayerHpTxt, score, stage, scoreboard;
     [SerializeField]
-    private Sprite lifebar1, lifebar2, lifebar3, lifebar4, lifebar5;
+    private Sprite lifebar1, lifebar2, lifebar3, lifebar4, lifebar5,faceAngry,faceFrustrated,faceNeutral,faceHappy;
 
     // Start is called before the first frame update
     void Start()
@@ -47,8 +50,9 @@ public class UiController : MonoBehaviour
         Pause();
         GameOver();
         LifeRenderManager();
+        FaceManager();
         MetersTxt.text = "Meters : " + metersController.Meters;
-        Mood.text = "Mood: " + faithController.entityStatus;
+        //Mood.text = "Mood: " + faithController.entityStatus;
         stage.text = platformControllerV2.stage;
         if(PlayerHpTxt != null)
         {
@@ -155,5 +159,28 @@ public class UiController : MonoBehaviour
                 break;
         }
         
+    }
+
+    private void FaceManager()
+    {
+        switch (faithController.entityStatus)
+        {
+            case "Angry":
+                faceMood.texture = faceAngry.texture;
+                Mood.text = "Mood: <color=#FF0000>" + faithController.entityStatus + "</color>";
+                break;
+            case "Frustrated":
+                faceMood.texture = faceFrustrated.texture;
+                Mood.text = "Mood: <color=#FF8B00>" + faithController.entityStatus + "</color>";
+                break;
+            case "Neutral":
+                faceMood.texture = faceNeutral.texture;
+                Mood.text = "Mood: <color=#00FFE4>" + faithController.entityStatus + "</color>";
+                break;
+            case "Happy":
+                faceMood.texture = faceHappy.texture;
+                Mood.text = "Mood: <color=#00FF1F>" + faithController.entityStatus + "</color>";
+                break;
+        }
     }
 }

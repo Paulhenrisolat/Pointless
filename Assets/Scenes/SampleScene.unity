@@ -2097,7 +2097,7 @@ Transform:
   m_GameObject: {fileID: 667957915}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5165668, y: 3.4627657, z: -8.506088}
+  m_LocalPosition: {x: 2.5165668, y: -662, z: -8.506088}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2129,6 +2129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
   gameOver: {fileID: 0}
+  faceMood: {fileID: 1677044164}
   Mood: {fileID: 2017857250}
   MetersTxt: {fileID: 623820921}
   PlayerHpTxt: {fileID: 1821610642}
@@ -2140,6 +2141,10 @@ MonoBehaviour:
   lifebar3: {fileID: 21300000, guid: 63574c6d69f60c649a30df35f3583b55, type: 3}
   lifebar4: {fileID: 21300000, guid: 9d8e57710ec92b8418ab569b9bcd199a, type: 3}
   lifebar5: {fileID: 21300000, guid: 16269a77fd932bc4a8a94c5df4a05f86, type: 3}
+  faceAngry: {fileID: 21300000, guid: e55aaddf199a5f74db4627b06fd22025, type: 3}
+  faceFrustrated: {fileID: 21300000, guid: b131fc3bfad745c479f1416057a3dddb, type: 3}
+  faceNeutral: {fileID: 21300000, guid: 09795751f0f77a5438d1d01870ee1781, type: 3}
+  faceHappy: {fileID: 21300000, guid: ba898a217a8a7c446a86155f1b2ce929, type: 3}
 --- !u!114 &667957920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2218,6 +2223,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44e3ad3e08a0ebb4e94cf9b588e89f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  headLight: {fileID: 2100000, guid: 23cf9c8eed4af9d4e873714d21f1350a, type: 2}
+  deityLight: {fileID: 703064290}
 --- !u!114 &667957923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2267,7 +2274,7 @@ GameObject:
   - component: {fileID: 703064289}
   - component: {fileID: 703064290}
   m_Layer: 0
-  m_Name: Point Light
+  m_Name: DeityLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2300,8 +2307,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_Intensity: 500
-  m_Range: 270
+  m_Intensity: 217
+  m_Range: 730
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -9851,7 +9858,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -854, y: 312}
+  m_AnchoredPosition: {x: -854, y: -353.46277}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1677044164
@@ -9901,7 +9908,7 @@ GameObject:
   - component: {fileID: 1693949251}
   - component: {fileID: 1693949250}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: DeityHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10154,7 +10161,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -280, y: 113}
+  m_AnchoredPosition: {x: -280, y: 89}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1702418059
@@ -10978,7 +10985,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 552, y: -344}
+  m_AnchoredPosition: {x: 552, y: -1009.46277}
   m_SizeDelta: {x: 995.1792, y: 90.4391}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2017857250

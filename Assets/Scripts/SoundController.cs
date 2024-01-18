@@ -17,7 +17,8 @@ public class SoundController : MonoBehaviour
         audioSource = Camera.main.GetComponent<AudioSource>();
         audioSourceMusic = GameObject.Find("CameraHandler").GetComponent<AudioSource>();
         PlayMusic("SakuzyoSynthesizedAngelFalse");
-        audioSourceMusic.volume = 0.02f;
+        audioSourceMusic.volume = 0.09f;
+        audioSourceMusic.loop = true;
     }
 
     // Update is called once per frame
