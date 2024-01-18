@@ -167,7 +167,6 @@ public class PlayerController : MonoBehaviour
     {
         if (playerHp <= 0)
         {
-            Debug.Log("GameOver !");
             isDead = true;
             playerRigibody.constraints = RigidbodyConstraints.FreezeAll;
             if(playerMeshRenderer.enabled == true)

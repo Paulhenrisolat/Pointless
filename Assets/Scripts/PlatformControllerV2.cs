@@ -45,7 +45,7 @@ public class PlatformControllerV2 : MonoBehaviour
 
         playerPosZ = playerController.positionZ;
 
-        maxPlatform = 9;
+        maxPlatform = 12;
         distDestroy = 20f;
     }
 
