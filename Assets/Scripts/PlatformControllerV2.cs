@@ -15,6 +15,9 @@ public class PlatformControllerV2 : MonoBehaviour
     [SerializeField]
     private int maxPlatform, trapChance;
 
+    [SerializeField]
+    private Material materialRuin, materialForest, materialHell, materialHeaven;
+
     public string stage { get; private set; }
     public float playerPosZ { get; private set; }
     public float distDestroy { get; private set; }
@@ -79,6 +82,7 @@ public class PlatformControllerV2 : MonoBehaviour
 
             float platformSize = newPlatform.GetComponentInChildren<Transform>().Find("Plane").GetComponent<Collider>().bounds.size.z;
             newPlatform.transform.position = new Vector3(0,0.2f,nextPosPlatform + platformSize/2);
+            newPlatform.GetComponentInChildren<Transform>().Find("Plane").GetComponent<Renderer>().material = MaterialManager();
             nextPosPlatform += platformSize;
             
             collectibleControler.PlaceCollectible(newPlatform);
@@ -138,6 +142,21 @@ public class PlatformControllerV2 : MonoBehaviour
                 actualStage = new GameObject[platformsHeaven.Length];
                 platformsHeaven.CopyTo(actualStage, 0);
                 break;
+        }
+    }
+    private Material MaterialManager()
+    {
+        switch (stage)
+        {
+            case "ruin":
+                return materialRuin;
+            case "forest":
+                return materialForest;
+            case "hell":
+                return materialHell;
+            case "heaven":
+                return materialHeaven;
+            default: return materialRuin;
         }
     }
 

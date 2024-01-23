@@ -17,6 +17,7 @@ public class UiController : MonoBehaviour
     private PlatformControllerV2 platformControllerV2;
     private SaveController saveController;
     private SpriteRenderer lifeBarRenderer;
+    private OptionController optionController;
 
     [SerializeField]
     private RawImage faceMood;
@@ -40,6 +41,7 @@ public class UiController : MonoBehaviour
         faithController = this.gameObject.GetComponent<FaithController>();
         platformControllerV2 = this.gameObject.GetComponent<PlatformControllerV2>();
         saveController = this.gameObject.GetComponent<SaveController>();
+        optionController = this.gameObject.GetComponent<OptionController>();
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         lifeBarRenderer = GameObject.Find("LifeBar").GetComponent<SpriteRenderer>();
     }
@@ -107,13 +109,20 @@ public class UiController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && !playerController.isDead)
         {
-            if (!pauseIsOn)
+            if (optionController.optionIsOpen)
             {
-                pauseIsOn = true;
+                optionController.CloseOption();
             }
             else
             {
-                pauseIsOn = false;
+                if (!pauseIsOn)
+                {
+                    pauseIsOn = true;
+                }
+                else
+                {
+                    pauseIsOn = false;
+                }
             }
         }
 

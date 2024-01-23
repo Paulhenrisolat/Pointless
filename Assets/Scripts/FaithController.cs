@@ -42,9 +42,9 @@ public class FaithController : MonoBehaviour
                 break;
             case int n when (n >= 10 && n <= 19):
                 entityStatus = "Neutral";
-                deityLight.color = Color.blue;
-                headLight.color = Color.blue;
-                headLight.SetColor("_EmissionColor", Color.blue);
+                deityLight.color = Color.cyan;
+                headLight.color = Color.cyan;
+                headLight.SetColor("_EmissionColor", Color.cyan);
                 break;
             case int n when (n >= 20):
                 entityStatus = "Happy";

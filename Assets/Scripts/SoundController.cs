@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class SoundController : MonoBehaviour
 {
-    [SerializeField]
-    private AudioSource audioSource, audioSourceMusic;
+    public AudioSource audioSource, audioSourceMusic;
     [SerializeField]
     private List<AudioClip> sounds = new();
     [SerializeField]
@@ -18,6 +17,7 @@ public class SoundController : MonoBehaviour
         audioSourceMusic = GameObject.Find("CameraHandler").GetComponent<AudioSource>();
         PlayMusic("SakuzyoSynthesizedAngelFalse");
         audioSourceMusic.volume = 0.09f;
+        audioSource.volume = 0.6f;
         audioSourceMusic.loop = true;
     }
 
@@ -50,8 +50,12 @@ public class SoundController : MonoBehaviour
             }
         }
     }
-    public void ChangeVolume()
+    public void ChangeMusicVolume(float musicVolume)
     {
-
+        audioSourceMusic.volume = musicVolume;
+    }
+    public void ChangSoundVolume(float soundVolume)
+    {
+        audioSource.volume = soundVolume;
     }
 }
