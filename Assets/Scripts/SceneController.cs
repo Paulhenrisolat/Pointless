@@ -14,4 +14,10 @@ public class SceneController : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void GameModeSelector(int gameMode)
+    {
+        PlayerPrefs.SetInt("GameModeSelected", gameMode);
+        PlayerPrefs.Save();
+    }
 }

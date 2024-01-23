@@ -29,6 +29,7 @@ public class UiController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Screen.SetResolution(Screen.width, Screen.height, true);
         //pause
         pauseMenu = GameObject.Find("PauseMenu");
         pauseIsOn = false;

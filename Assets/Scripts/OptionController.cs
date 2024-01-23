@@ -14,6 +14,8 @@ public class OptionController : MonoBehaviour
     [SerializeField]
     private Slider soundSlider, musicSlider;
     private SoundController soundController;
+    [SerializeField]
+    private Toggle toggleFullscren;
     public bool optionIsOpen { get; private set; }
 
     // Start is called before the first frame update
@@ -33,6 +35,7 @@ public class OptionController : MonoBehaviour
             musicVolume.text = String.Format("{0:0.00}", soundController.audioSourceMusic.volume * 100) + " %";
             soundController.ChangSoundVolume(soundSlider.value);
             soundVolume.text = String.Format("{0:0.00}", soundController.audioSource.volume * 100) + " %";
+            ChangeScreenSize(toggleFullscren.isOn);
         }
     }
 
@@ -47,5 +50,17 @@ public class OptionController : MonoBehaviour
     {
         optionWindow.SetActive(false);
         optionIsOpen = false;
+    }
+
+    private void ChangeScreenSize(bool fullscreenOn)
+    {
+        if (fullscreenOn)
+        {
+            Screen.SetResolution(1920, 1080, true);
+        }
+        else
+        {
+            Screen.SetResolution(800, 600, false);
+        }
     }
 }

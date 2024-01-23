@@ -2948,7 +2948,6 @@ MonoBehaviour:
   - {fileID: 4202970524253455766, guid: 2d280159e40a1904eb4aaa962621f34e, type: 3}
   - {fileID: 1373859629089281194, guid: 67ed90a0b5f32ed49b0cba71a2262a02, type: 3}
   - {fileID: 1373859629089281194, guid: 5815f71ab3cf80a449cb944f4dec8bb3, type: 3}
-  - {fileID: 8784753568605811934, guid: c535e4f569bd55f4b812e8a69e599be6, type: 3}
   actualStage: []
   platformsOnScene: []
   maxPlatform: 0
@@ -3026,6 +3025,7 @@ MonoBehaviour:
   musicVolume: {fileID: 652703489}
   soundSlider: {fileID: 1420095521}
   musicSlider: {fileID: 1335984519}
+  toggleFullscren: {fileID: 1948700184}
 --- !u!1 &703064288
 GameObject:
   m_ObjectHideFlags: 0
@@ -12669,7 +12669,7 @@ GameObject:
   - component: {fileID: 1948700183}
   - component: {fileID: 1948700184}
   m_Layer: 5
-  m_Name: Toggle
+  m_Name: ToggleFullscreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

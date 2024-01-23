@@ -29,6 +29,8 @@ public class PlatformControllerV2 : MonoBehaviour
     private CollectibleControler collectibleControler;
     private FaithController faithController;
 
+    private int distStage;
+
     private void Awake()
     {
         if (Instance != null)
@@ -50,13 +52,22 @@ public class PlatformControllerV2 : MonoBehaviour
 
         maxPlatform = 12;
         distDestroy = 20f;
+        distStage = 1000;
     }
 
     // Update is called once per frame
     void Update()
     {
         playerPosZ = playerController.positionZ;
-        StageManager();
+        if (PlayerPrefs.GetInt("GameModeSelected") == 1)
+        {
+            StageManager("Story");
+        }
+        if (PlayerPrefs.GetInt("GameModeSelected") == 2)
+        {
+            StageManager("Endless");
+        }
+
         PlacePlatform();
         PlatformManager();
     }
@@ -118,32 +129,78 @@ public class PlatformControllerV2 : MonoBehaviour
         }
         
     }
-    private void StageManager()
+    private void StageManager(string gameModeName)
     {
-        switch (playerPosZ,playerPosZ)
+        if (gameModeName == "Story")
         {
-            case ( > 0, < 1000):
+            switch (playerPosZ, playerPosZ)
+            {
+                case ( > 0, < 1000):
+                    stage = "ruin";
+                    actualStage = new GameObject[platformsRuin.Length];
+                    platformsRuin.CopyTo(actualStage, 0);
+                    break;
+                case ( > 1000, < 3000):
+                    stage = "forest";
+                    actualStage = new GameObject[platformsForest.Length];
+                    platformsForest.CopyTo(actualStage, 0);
+                    break;
+                case ( > 3000, < 6000):
+                    stage = "hell";
+                    actualStage = new GameObject[platformsHell.Length];
+                    platformsHell.CopyTo(actualStage, 0);
+                    break;
+                case ( > 6000, < 40000):
+                    stage = "heaven";
+                    actualStage = new GameObject[platformsHeaven.Length];
+                    platformsHeaven.CopyTo(actualStage, 0);
+                    break;
+            }
+        }
+        if (gameModeName == "Endless")
+        {
+            if(playerPosZ < 1000)
+            {
                 stage = "ruin";
                 actualStage = new GameObject[platformsRuin.Length];
-                platformsRuin.CopyTo(actualStage,0);
+                platformsRuin.CopyTo(actualStage, 0);
+            }
+            if(playerPosZ >= distStage)
+            {
+                RandomStage();
+                distStage *= 2;
+            }
+        }
+    }
+
+    private void RandomStage()
+    {
+        int r = Random.Range(0, 4);
+        switch (r)
+        {
+            case (0):
+                stage = "ruin";
+                actualStage = new GameObject[platformsRuin.Length];
+                platformsRuin.CopyTo(actualStage, 0);
                 break;
-            case ( > 1000, < 3000):
+            case (1):
                 stage = "forest";
                 actualStage = new GameObject[platformsForest.Length];
                 platformsForest.CopyTo(actualStage, 0);
                 break;
-            case ( > 3000, < 6000):
+            case (2):
                 stage = "hell";
                 actualStage = new GameObject[platformsHell.Length];
                 platformsHell.CopyTo(actualStage, 0);
                 break;
-            case ( > 6000, < 40000):
+            case (3):
                 stage = "heaven";
                 actualStage = new GameObject[platformsHeaven.Length];
                 platformsHeaven.CopyTo(actualStage, 0);
                 break;
         }
     }
+
     private Material MaterialManager()
     {
         switch (stage)
