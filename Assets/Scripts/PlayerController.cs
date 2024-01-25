@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     
     private TimeService invincibilityTimer;
     private GameObject gameplayManager;
+    private ScriptLocator scriptLocator;
     private GameObject cameraPlayer;
     private MetersController metersController;
     private UiController uiController;
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
         canTakeDamage = true;
         transform.position = new Vector3(0, minY, startingPosition);
         gameplayManager = GameObject.Find("GameplayManager");
+        scriptLocator = gameplayManager.GetComponent<ScriptLocator>();
         metersController = gameplayManager.GetComponent<MetersController>();
         uiController = gameplayManager.GetComponent<UiController>();
         faithController = gameplayManager.GetComponent<FaithController>();
@@ -139,6 +141,7 @@ public class PlayerController : MonoBehaviour
             {
                 playerRigibody.velocity = new Vector3(0, 0, 0);
                 playerRigibody.AddForce(Vector3.up * jumpSpeed);
+                //soundController.PlaySound("Jump");
                 isOnGround = false;
             }
         }
@@ -148,6 +151,7 @@ public class PlayerController : MonoBehaviour
             {
                 playerRigibody.velocity = new Vector3(0, 0, 0);
                 playerRigibody.AddForce(Vector3.up * jumpSpeed);
+                //soundController.PlaySound("Jump");
                 jumpLeft--;
             }
             if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl) || Input.GetKeyDown(KeyCode.S))
@@ -205,11 +209,13 @@ public class PlayerController : MonoBehaviour
             faithController.AddFaith();
             ParticleSystem faithParticle = other.gameObject.GetComponentInChildren<ParticleSystem>();
             faithParticle.Play();
+            soundController.PlaySound("FaithUp");
         }
         if (other.gameObject.tag == "FaithMalus")
         {
             faithController.LooseFaith();
             ParticleSystem faithParticle = other.gameObject.GetComponentInChildren<ParticleSystem>();
+            soundController.PlaySound("FaithDown");
             faithParticle.Play();
         }
     }
