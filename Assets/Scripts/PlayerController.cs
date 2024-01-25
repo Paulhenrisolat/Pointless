@@ -113,6 +113,8 @@ public class PlayerController : MonoBehaviour
             playerMeshRenderer.enabled = true;
             playerTrailRenderer.enabled = true;
         }
+
+        ResetPlayer();
     }
 
     private void SpeedManager()
@@ -148,7 +150,7 @@ public class PlayerController : MonoBehaviour
                 playerRigibody.AddForce(Vector3.up * jumpSpeed);
                 jumpLeft--;
             }
-            if (Input.GetKeyDown(KeyCode.LeftControl))
+            if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.RightControl) || Input.GetKeyDown(KeyCode.S))
             {
                 playerRigibody.velocity = new Vector3(0, 0, 0);
                 playerRigibody.AddForce(Vector3.down * jumpSpeed * 5);
@@ -244,5 +246,13 @@ public class PlayerController : MonoBehaviour
         playerMeshRenderer.enabled = false;
         playerTrailRenderer.enabled = false;
         yield return new WaitForSeconds(0.3f);
+    }
+
+    private void ResetPlayer()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            playerHp = 0;
+        }
     }
 }

@@ -16,6 +16,7 @@ public class FaithController : MonoBehaviour
     void Start()
     {
         faith = 10;
+        deityLight.intensity = 217;
     }
 
     // Update is called once per frame
@@ -30,18 +31,21 @@ public class FaithController : MonoBehaviour
         {
             case <= 0:
                 entityStatus = "Angry";
+                deityLight.intensity = 40;
                 deityLight.color = Color.red;
                 headLight.color = Color.red;
                 headLight.SetColor("_EmissionColor", Color.red);
                 break;
             case int n when (n >= 1 && n <= 9):
                 entityStatus = "Frustrated";
+                deityLight.intensity = 50;
                 deityLight.color = Color.yellow;
                 headLight.color = Color.yellow;
                 headLight.SetColor("_EmissionColor", Color.yellow);
                 break;
             case int n when (n >= 10 && n <= 19):
                 entityStatus = "Neutral";
+                deityLight.intensity = 217;
                 deityLight.color = Color.cyan;
                 headLight.color = Color.cyan;
                 headLight.SetColor("_EmissionColor", Color.cyan);

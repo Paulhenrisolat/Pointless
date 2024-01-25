@@ -2557,7 +2557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &624938897
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2954,7 +2954,7 @@ MonoBehaviour:
   trapChance: 0
   materialRuin: {fileID: 2100000, guid: 2be9bf96a765bd545ba660b56f5e9df0, type: 2}
   materialForest: {fileID: 2100000, guid: 224495ea212fb6846b4f3e99561e7908, type: 2}
-  materialHell: {fileID: 2100000, guid: b3e7d118749bb11478868254de35c8b5, type: 2}
+  materialHell: {fileID: 2100000, guid: 817a31a9a8a7c2d41b8babebe627763a, type: 2}
   materialHeaven: {fileID: 2100000, guid: 00f55648fe3aeba4aa2c7419f9c21b24, type: 2}
 --- !u!114 &667957922
 MonoBehaviour:
@@ -3441,7 +3441,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &814084022
 RectTransform:
   m_ObjectHideFlags: 0

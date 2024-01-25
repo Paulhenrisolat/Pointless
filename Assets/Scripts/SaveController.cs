@@ -53,7 +53,6 @@ public class SaveController : MonoBehaviour
     }
     public void AddScore()
     {
-        Debug.Log("ptn");
         PlayerScore playerScore = new();
         playerScore.name = scoreNameInput.text;
         playerScore.meters = (float)Math.Round(metersController.Meters, 2);

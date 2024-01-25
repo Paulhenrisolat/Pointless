@@ -35,7 +35,7 @@ public class OptionController : MonoBehaviour
             musicVolume.text = String.Format("{0:0.00}", soundController.audioSourceMusic.volume * 100) + " %";
             soundController.ChangSoundVolume(soundSlider.value);
             soundVolume.text = String.Format("{0:0.00}", soundController.audioSource.volume * 100) + " %";
-            ChangeScreenSize(toggleFullscren.isOn);
+            //ChangeScreenSize(toggleFullscren.isOn);
         }
     }
 

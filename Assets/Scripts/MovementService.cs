@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MovementService : MonoBehaviour
 {
+    
     [SerializeField]
     private float speedX, speedY, speedZ;
     private float posX, posY, posZ;
@@ -18,11 +20,16 @@ public class MovementService : MonoBehaviour
     private float randSpeed;
 
     private UiController uiController;
+    private string sceneName;
 
     // Start is called before the first frame update
     void Start()
     {
-        uiController = GameObject.Find("GameplayManager").GetComponent<UiController>();
+        sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName != "Menu")
+        {
+            uiController = GameObject.Find("GameplayManager").GetComponent<UiController>();
+        }
 
         posX = transform.position.x;
         posY = transform.position.y;
@@ -49,7 +56,7 @@ public class MovementService : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canMove && !uiController.pauseIsOn)
+        if ((canMove && sceneName == "Menu") || (canMove && !uiController.pauseIsOn))
         {
             posX += speedX * Time.deltaTime;
             posY += speedY * Time.deltaTime;
